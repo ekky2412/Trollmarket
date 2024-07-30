@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{layout:: head('Delete Rejected')}">
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<div class="layout-wrapper layout-content-navbar">
+	<div class="layout-container">
+		<!-- Layout container -->
+		<div class="layout-page">
+			<nav th:replace="~{layout::upper-nav}"></nav>
+
+			<div class="content-wrapper">
+				<div class="container-xxl flex-grow-1 container-p-y">
+					<div class="alert alert-danger">
+						<p>Ada <span th:text="${orderCount}"></span> order content yang ditemukan masih terdaftar di database.</p>
+						<p>Anda tidak bisa menghapus parent content ini selama data child itu masih berada di dalam database.</p>
+						<p>Silahkan contact IT department untuk penjelasan lebih detail.</p>
+						<a class="btn btn-danger" th:href="@{/shipment}">Back To Shipment</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<div th:replace="~{layout::js-import}"></div>
+</body>
+</html>

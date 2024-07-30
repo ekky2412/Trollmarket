@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{layout:: head('Add Product Merchandise')}">
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<div class="layout-wrapper layout-content-navbar">
+	<div class="layout-container">
+		<!-- Layout container -->
+		<div class="layout-page">
+			<nav th:replace="~{layout::upper-nav}"></nav>
+
+			<div class="content-wrapper">
+				<div class="container-xxl flex-grow-1 container-p-y">
+					<div class="row">
+						<div class="card mb-3">
+							<h5 class="card-header">Merchandise >
+								<span th:text="${product.id != null ? 'Edit Product' : 'Add Product' }"></span>
+							</h5>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-body">
+									<form th:action="@{/merchandise/upsert}" method="post">
+										<input type="hidden" name="id" th:value="${product.id != null ? product.id : null}">
+										<div class="mb-3">
+											<label for="name" class="form-label">Name</label>
+											<input type="text" class="form-control" id="name" placeholder="Enter name" name="name" th:value="${product.name != null ? product.name : null}">
+										</div>
+										<div th:errors="${product.name}" class="alert alert-danger"></div>
+
+										<div class="mb-3">
+											<label for="category" class="form-label">Category</label>
+											<input type="text" class="form-control" id="category" placeholder="Enter category" name="category" th:value="${product.category != null ? product.category : null}">
+										</div>
+										<div th:errors="${product.category}" class="alert alert-danger"></div>
+
+										<div class="mb-3">
+											<label for="description" class="form-label">Description</label>
+											<textarea class="form-control" id="description" rows="3" placeholder="Enter description" name="description" th:text="${product.description != null ? product.description : ''}"></textarea>
+										</div>
+										<div th:errors="${product.description}" class="alert alert-danger"></div>
+
+										<div class="mb-3">
+											<label for="price" class="form-label">Price</label>
+											<input type="number" class="form-control" id="price" placeholder="Enter price" name="price" th:value="${product.price != null ? product.price : null}">
+										</div>
+										<div th:errors="${product.price}" class="alert alert-danger"></div>
+
+										<div class="mb-3 form-check">
+											<input type="checkbox" class="form-check-input" id="discontinueCheck" name="isDiscontinue" th:checked="${product.isDiscontinue}">
+											<label class="form-check-label" for="discontinueCheck">Discontinue</label>
+										</div>
+										<div th:errors="${product.isDiscontinue}" class="alert alert-danger"></div>
+
+										<button class="btn btn-primary" type="submit">Save</button>
+										<a class="btn btn-primary" th:href="@{/merchandise}">Cancel</a>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div th:replace="~{layout::js-import}"></div>
+</body>
+</html>

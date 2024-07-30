@@ -1,0 +1,60 @@
+<div aria-hidden="true" class="modal fade" id="modalCenter" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalCenterTitle" th:text="${shipper != null ? 'Edit Shipment' : 'Tambah Shipment'}">Tambah Shipment</h5>
+				<button
+						aria-label="Close"
+						class="btn-close"
+						data-bs-dismiss="modal"
+						type="button"
+				></button>
+			</div>
+			<form method="post" th:action="@{/shipment/upsert}">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col mb-3">
+							<div>
+								<input type="hidden" name="id" th:value="${shipper == null ? null : shipper.id}"/>
+								<label for="name">Name</label>
+								<input
+										class="form-control"
+										id="name"
+										name="name"
+										placeholder="Name..."
+										type="text"
+										th:value="${shipper == null ? null : shipper.name}"
+								/>
+							</div>
+							<div>
+								<label for="price">Price</label>
+								<input
+										class="form-control"
+										id="price"
+										name="price"
+										placeholder="Price..."
+										type="text"
+										th:value="${shipper == null ? null : shipper.price}"
+								/>
+							</div>
+							<label for="service">Service</label>
+							<input
+									class="form-check-input"
+									id="service"
+									name="service"
+									type="checkbox"
+									th:checked="${shipper == null ? false : shipper.isService}"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+						Close
+					</button>
+					<button class="btn btn-primary" id="submitButton" type="submit">Save changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

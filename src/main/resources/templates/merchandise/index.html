@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html class="light-style customizer-hide"
+	  data-template="vertical-menu-template-free"
+	  data-theme="theme-default"
+	  dir="ltr"
+	  lang="en"
+	  th:data-assets-path="@{/resources/assets/}">
+<head th:replace="~{layout:: head('Merchandise')}">
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<div class="layout-wrapper layout-content-navbar">
+	<div class="layout-container">
+		<!-- Layout container -->
+		<div class="layout-page">
+			<nav th:replace="~{layout::upper-nav}"></nav>
+
+			<div class="content-wrapper">
+				<div class="container-xxl flex-grow-1 container-p-y">
+					<div class="row">
+						<div class="card mb-3">
+							<h5 class="card-header">Merchandise</h5>
+						</div>
+					</div>
+					<a class="btn btn-primary mb-3" th:href="@{/merchandise/add}">
+						Add New Product
+					</a>
+					<div class="card">
+						<div class="table-responsive text-nowrap">
+							<table class="table table-striped">
+								<thead>
+								<tr>
+									<th>Action</th>
+									<th>Name</th>
+									<th>Category</th>
+									<th>Discontinue</th>
+								</tr>
+								</thead>
+								<tbody class="table-border-bottom-0">
+								<tr th:each="product : ${products}" th:object="${product}">
+									<td>
+										<a class="btn btn-warning"
+										   th:href="@{/merchandise/edit/{id} (id=*{id}) }"
+										   th:classappend="${product.totalOrders > 0} ? 'disabled' : ''"
+										>Edit</a>
+										<a class="btn btn-danger" th:href="@{/merchandise/delete/{id} (id=*{id}) }">Delete</a>
+										<a class="btn btn-primary" th:href="@{/merchandise/detail/{id} (id=*{id}) }">Info</a>
+										<a class="btn btn-danger"
+										   th:classappend="${product.discontinue} ? ' disabled' : ''"
+										   th:href="@{/merchandise/discontinue/{id} (id=*{id}) }"
+										>Discontinue</a>
+									</td>
+									<td th:text="*{productName}"></td>
+									<td th:text="*{categoryName}"></td>
+									<td th:text="*{discontinueString}"></td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<input id="productId" th:value="${product != null ? product.id : null}" type="hidden">
+<div class="modal fade" id="modalCenter" tabindex="-1">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalCenterTitle">Detail Merchandise</h5>
+				<button
+						aria-label="Close"
+						class="btn-close"
+						data-bs-dismiss="modal"
+						type="button"
+				></button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive text-nowrap">
+					<table class="table table-borderless">
+						<tbody class="table-border-bottom-0" th:object="${product}">
+						<tr>
+							<td>Name</td>
+							<td th:text="*{name}"></td>
+						</tr>
+						<tr>
+							<td>Category</td>
+							<td th:text="*{category}"></td>
+						</tr>
+						<tr>
+							<td>Description</td>
+							<td th:text="*{description}"></td>
+						</tr>
+						<tr>
+							<td>Price</td>
+							<td th:text="*{priceFormatted}"></td>
+						</tr>
+						<tr>
+							<td>Discontinue</td>
+							<td th:text="*{discontinueString}"></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-outline-secondary" data-bs-dismiss="modal" type="button">
+					Close
+				</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div th:replace="~{layout::js-import}"></div>
+<script>
+	(function () {
+                let merchandise = document.querySelector("#productId");
+                if (merchandise.value != "") {
+                    let modalElement = document.querySelector("#modalCenter");
+					let modal = new bootstrap.Modal(modalElement);
+					modal.show();
+                }
+            }())
+</script>
+</body>
+</html>

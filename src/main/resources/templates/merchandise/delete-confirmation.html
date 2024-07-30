@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{layout:: head('Delete Confirmation')}">
+	<meta charset="UTF-8">
+	<title>Title</title>
+</head>
+<body>
+<div class="layout-wrapper layout-content-navbar">
+	<div class="layout-container">
+		<!-- Layout container -->
+		<div class="layout-page">
+			<nav th:replace="~{layout::upper-nav}"></nav>
+
+			<div class="content-wrapper">
+				<div class="container-xxl flex-grow-1 container-p-y">
+					<div class="card">
+						<div class="card-body">
+							<form method="post" class="upsert-form" th:action="@{/merchandise/delete/confirm}">
+								<input type="hidden" name="id" th:value="${product.id}">
+								<p>Apakah anda yakin ingin menghapus produk <span style="font-weight:bold" th:text="${product.name}"></span>?</p>
+								<button class="btn btn-danger" type="submit">Hapus</button>
+								<a class="btn btn-primary" th:href="@{/merchandise}">Back to Merchandise</a>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div th:replace="~{layout::js-import}"></div>
+</body>
+</html>

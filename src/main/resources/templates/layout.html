@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html
+		class="light-style layout-menu-fixed"
+		data-template="vertical-menu-template-free"
+		data-theme="theme-default"
+		dir="ltr"
+		lang="en"
+		th:data-assets-path="@{/assets/}"
+>
+<head th:fragment="head(title)">
+	<meta charset="utf-8"/>
+	<meta
+			content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+			name="viewport"
+	/>
+
+	<title th:text="${title} == null ? 'TrollMarket' : ${title} + ' - TrollMarket'"></title>
+	<!-- Favicon -->
+	<link rel="icon" th:href="@{/assets/img/favicon/favicon.ico}" type="image/x-icon"/>
+
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com" rel="preconnect"/>
+	<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+	<link
+			href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+			rel="stylesheet"
+	/>
+
+	<!-- Icons. Uncomment required icon fonts -->
+	<link rel="stylesheet" th:href="@{/resources/assets/vendor/fonts/boxicons.css}"/>
+
+	<!-- Core CSS -->
+	<link class="template-customizer-core-css" rel="stylesheet" th:href="@{/resources/assets/vendor/css/core.css}"/>
+	<link class="template-customizer-theme-css" rel="stylesheet"
+		  th:href="@{/resources/assets/vendor/css/theme-default.css}"/>
+	<link rel="stylesheet" th:href="@{/resources/assets/css/demo.css}"/>
+
+	<!-- Vendors CSS -->
+	<link rel="stylesheet" th:href="@{/resources/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css}"/>
+
+	<!-- Page CSS -->
+	<!-- Page -->
+	<link rel="stylesheet" th:href="@{/resources/assets/vendor/css/pages/page-auth.css}"/>
+	<!-- Helpers -->
+	<script th:src="@{/resources/assets/vendor/js/helpers.js}"></script>
+
+	<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+	<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+	<script th:src="@{/resources/assets/js/config.js}"></script>
+</head>
+
+<body th:fragment="body">
+<!-- Layout wrapper -->
+<div class="layout-wrapper layout-content-navbar">
+	<div class="layout-container">
+		<!-- Layout container -->
+		<div class="layout-page">
+			<!-- Navbar -->
+
+			<nav class="navbar-nav-right layout-navbar container-xxl navbar navbar-expand-md navbar-detached bg-navbar-theme"
+				 id="layout-navbar-upper"
+				 th:fragment="upper-nav">
+				<div class="container-fluid">
+					<button
+							aria-controls="navbarSupportedContent"
+							aria-expanded="false"
+							aria-label="Toggle navigation"
+							class="navbar-toggler"
+							data-bs-target="#navbarSupportedContent"
+							data-bs-toggle="collapse"
+							type="button"
+					>
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="navbar-nav">
+						<span class="app-brand-text demo text-body fw-bolder">Troll Market</span>
+					</div>
+					<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+						<ul class="navbar-nav align-items-center">
+
+							<li class="nav-item">
+								<a class="nav-link" th:href="@{/home}">Home</a>
+							</li>
+
+							<th:block sec:authorize="hasAnyAuthority('SELLER', 'BUYER')">
+								<li class="nav-item">
+									<a class="nav-link" th:href="@{/profile}">Profile</a>
+								</li>
+							</th:block>
+
+							<th:block sec:authorize="hasAuthority('BUYER')">
+								<li class="nav-item">
+									<a class="nav-link" th:href="@{/shop}">Shop</a>
+								</li>
+							</th:block>
+
+							<th:block sec:authorize="hasAuthority('SELLER')">
+								<li class="nav-item">
+									<a class="nav-link" th:href="@{/merchandise}">Merchandise</a>
+								</li>
+							</th:block>
+
+							<th:block sec:authorize="hasAuthority('ADMIN')">
+								<li class="nav-item">
+									<a class="nav-link" th:href="@{/shipment}">Shipment</a>
+								</li>
+							</th:block>
+
+							<th:block sec:authorize="hasAuthority('BUYER')">
+								<li class="nav-item">
+									<a class="nav-link" th:href="@{/cart}">My Cart</a>
+								</li>
+							</th:block>
+
+							<th:block sec:authorize="hasAuthority('ADMIN')">
+								<li class="nav-item">
+									<a class="nav-link" th:href="@{/admin}">Admin</a>
+								</li>
+							</th:block>
+
+							<th:block sec:authorize="hasAuthority('ADMIN')">
+								<li class="nav-item">
+									<a class="nav-link" th:href="@{/history}">History</a>
+								</li>
+							</th:block>
+						</ul>
+					</div>
+
+					<ul class="navbar-nav flex-row align-items-center ms-auto">
+						<!-- Place this tag where you want the button to render. -->
+
+						<!-- User -->
+						<li class="nav-item navbar-dropdown dropdown-user dropdown">
+							<a class="nav-link dropdown-toggle hide-arrow" data-bs-toggle="dropdown"
+							   href="javascript:void(0);">
+								<div class="avatar avatar-online">
+									<img alt class="w-px-40 h-auto rounded-circle"
+										 th:src="@{/resources/assets/img/avatars/troll.png}"/>
+								</div>
+							</a>
+							<ul class="dropdown-menu dropdown-menu-end" id="dropdown-menu-account">
+								<li>
+									<a class="dropdown-item" href="#">
+										<div class="d-flex">
+											<div class="flex-shrink-0 me-3">
+												<div class="avatar avatar-online">
+													<img alt class="w-px-40 h-auto rounded-circle"
+														 th:src="@{/resources/assets/img/avatars/troll.png}"/>
+												</div>
+											</div>
+											<div class="flex-grow-1">
+												<span class="fw-semibold d-block"
+													  sec:authentication="name">John Doe</span>
+												<small class="text-muted"
+													   sec:authentication="principal.authorities[0]">Admin</small>
+											</div>
+										</div>
+									</a>
+								</li>
+								<li>
+									<div class="dropdown-divider"></div>
+								</li>
+								<li>
+									<a class="dropdown-item" th:href="@{/}">
+										<i class="bx bx-toggle-left me-2"></i>
+										<span class="align-middle">Change Role</span>
+									</a>
+								</li>
+								<li>
+									<form method="post" th:action="@{/logout}">
+										<button class="dropdown-item">
+											<i class="bx bx-power-off me-2"></i>
+											<span class="align-middle">Log Out</span>
+										</button>
+									</form>
+								</li>
+							</ul>
+						</li>
+						<!--/ User -->
+					</ul>
+				</div>
+			</nav>
+
+			<!-- / Navbar -->
+		</div>
+		<!-- / Layout page -->
+	</div>
+
+</div>
+<!-- / Layout wrapper -->
+
+<div th:fragment="js-import">
+	<!-- Core JS -->
+	<!-- build:js assets/vendor/js/core.js -->
+	<script th:src="@{/resources/assets/vendor/libs/jquery/jquery.js}"></script>
+	<script th:src="@{/resources/assets/vendor/libs/popper/popper.js}"></script>
+	<script th:src="@{/resources/assets/vendor/js/bootstrap.js}"></script>
+	<script th:src="@{/resources/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+
+	<script th:src="@{/resources/assets/vendor/js/menu.js}"></script>
+	<!-- endbuild -->
+
+	<!-- Vendors JS -->
+
+	<!-- Main JS -->
+	<script th:src="@{/resources/assets/js/main.js}"></script>
+
+	<!-- Page JS -->
+
+	<!-- Place this tag in your head or just before your close body tag. -->
+	<script async defer src="https://buttons.github.io/buttons.js"></script>
+</div>
+</body>
+</html>

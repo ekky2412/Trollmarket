@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html
+		class="light-style customizer-hide"
+		data-template="vertical-menu-template-free"
+		data-theme="theme-default"
+		dir="ltr"
+		lang="en"
+		th:data-assets-path="@{/resources/assets/}"
+>
+<head th:replace="~{layout-login:: head('Register')}">
+	<meta charset="utf-8"/>
+	<meta
+			content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+			name="viewport"
+	/>
+
+	<title>Register Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+
+	<meta content="" name="description"/>
+
+	<!-- Favicon -->
+	<link href="../assets/img/favicon/favicon.ico" rel="icon" type="image/x-icon"/>
+
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com" rel="preconnect"/>
+	<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+	<link
+			href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+			rel="stylesheet"
+	/>
+
+	<!-- Icons. Uncomment required icon fonts -->
+	<link href="../assets/vendor/fonts/boxicons.css" rel="stylesheet"/>
+
+	<!-- Core CSS -->
+	<link class="template-customizer-core-css" href="../assets/vendor/css/core.css" rel="stylesheet"/>
+	<link class="template-customizer-theme-css" href="../assets/vendor/css/theme-default.css" rel="stylesheet"/>
+	<link href="../assets/css/demo.css" rel="stylesheet"/>
+
+	<!-- Vendors CSS -->
+	<link href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet"/>
+
+	<!-- Page CSS -->
+	<!-- Page -->
+	<link href="../assets/vendor/css/pages/page-auth.css" rel="stylesheet"/>
+	<!-- Helpers -->
+	<script src="../assets/vendor/js/helpers.js"></script>
+
+	<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+	<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+	<script src="../assets/js/config.js"></script>
+</head>
+
+<body>
+<!-- Content -->
+
+<div class="container-xxl">
+	<div class="authentication-wrapper authentication-basic container-p-y">
+		<div class="authentication-inner">
+			<!-- Register Card -->
+			<div class="card">
+				<div class="card-body">
+					<!-- Logo -->
+					<div class="app-brand justify-content-center">
+						<a class="app-brand-link gap-2" href="index.html">
+                  <span class="app-brand-logo demo">
+                    <img th:src="@{/resources/assets/img/avatars/troll.png}" width="50px">
+                  </span>
+							<span class="app-brand-text demo text-body fw-bolder">TrollMarket</span>
+						</a>
+					</div>
+					<!-- /Logo -->
+
+
+					<form class="mb-3" id="formAuthentication" method="POST" th:action="@{/register}">
+						<input name="role" th:value="${dto.role}" type="hidden">
+						<div class="mb-3">
+							<label class="form-label" for="username">Username</label>
+							<input
+									autofocus
+									class="form-control"
+									id="username"
+									name="username"
+									placeholder="Enter your username"
+									type="text"
+							/>
+						</div>
+						<div class="alert alert-danger" th:errors="${dto.username}"></div>
+						<div class="mb-3 form-password-toggle">
+							<label class="form-label" for="password">Password</label>
+							<div class="input-group input-group-merge">
+								<input
+										aria-describedby="password"
+										class="form-control"
+										id="password"
+										name="password"
+										placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+										type="password"
+								/>
+								<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+							</div>
+							<div class="alert alert-danger" th:errors="${dto.password}"></div>
+						</div>
+						<div class="mb-3 form-password-toggle">
+							<label class="form-label" for="password">Confirm Password</label>
+							<div class="input-group input-group-merge">
+								<input
+										aria-describedby="password"
+										class="form-control"
+										id="confirmPassword"
+										name="confirmPassword"
+										placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+										type="password"
+								/>
+								<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+							</div>
+							<div class="alert alert-danger" th:errors="${dto}"></div>
+							<div class="alert alert-danger" th:errors="${dto.confirmPassword}"></div>
+						</div>
+						<div class="mb-3">
+							<label class="form-label" for="name">Name</label>
+							<input
+									class="form-control"
+									id="name"
+									name="name"
+									placeholder="Enter your name"
+									type="text"
+							/>
+						</div>
+						<div class="alert alert-danger" th:errors="${dto.name}"></div>
+						<div class="mb-3">
+							<label class="form-label" for="address">Address</label>
+							<textarea class="form-control"
+									  id="address"
+									  name="address"
+									  placeholder="Enter your address"></textarea>
+						</div>
+						<div class="alert alert-danger" th:errors="${dto.address}"></div>
+						<button class="btn btn-primary d-grid w-100">Sign up</button>
+					</form>
+
+					<p class="text-center">
+						<span>Already have an account?</span>
+						<a href="auth-login-basic.html">
+							<span>Sign in instead</span>
+						</a>
+					</p>
+					<p class="text-center">
+						<span>Register as a </span>
+						<a th:href="@{/register/buyer}" th:if="${dto.role == 'SELLER'}">
+							<span>Buyer</span>
+						</a>
+						<a th:href="@{/register/seller}" th:if="${dto.role == 'BUYER'}">
+							<span>Seller</span>
+						</a>
+					</p>
+				</div>
+			</div>
+			<!-- Register Card -->
+		</div>
+	</div>
+</div>
+
+<!-- Core JS -->
+<!-- build:js assets/vendor/js/core.js -->
+<script th:src="@{/resources/assets/vendor/libs/jquery/jquery.js}"></script>
+<script th:src="@{/resources/assets/vendor/libs/popper/popper.js}"></script>
+<script th:src="@{/resources/assets/vendor/js/bootstrap.js}"></script>
+<script th:src="@{/resources/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js}"></script>
+
+<script th:src="@{/resources/assets/vendor/js/menu.js}"></script>
+<!-- endbuild -->
+
+<!-- Vendors JS -->
+
+<!-- Main JS -->
+<script th:src="@{/resources/assets/js/main.js}"></script>
+
+<!-- Page JS -->
+
+<!-- Place this tag in your head or just before your close body tag. -->
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
